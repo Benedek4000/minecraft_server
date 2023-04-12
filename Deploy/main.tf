@@ -3,7 +3,8 @@ variable "region" {}
 variable "az" {}
 variable "server_file_source" {}
 variable "lambda_file_source" {}
-variable "domain_tag" {}
+variable "api_domain_tag" {}
+variable "minecraft_domain_tag" {}
 variable "zone_name" {}
 variable "cidr_vpc" {}
 variable "cidr_anyone" {}
@@ -11,7 +12,9 @@ variable "port_ssh" {}
 variable "port_http" {}
 variable "port_https" {}
 variable "port_server" {}
+variable "port_server_status" {}
 variable "lambda_role_predefined_policies" {}
+variable "ec2_role_predefined_policies" {}
 variable "instance_type" {}
 
 locals {

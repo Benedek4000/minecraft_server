@@ -1,8 +1,18 @@
 import boto3
+import json
 
 def handler(event, context):
-    client = boto3.client('ec2',region_name="${REGION_NAME}")
-    responses = client.start_instances(InstanceIds=["${INSTANCE_ID}"])
-    print(responses)
+    try:
+        client = boto3.client('ec2',region_name="${REGION_NAME}")
+        responses = client.start_instances(InstanceIds=["${INSTANCE_ID}"])
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Server started. It may take up to 5 minutes for the server to start up.')
+        }
+    except:
+        return {
+            'statusCode': 500,
+            'body': json.dumps('FAILURE')
+        }
 
-# add even scheduler
+# add event scheduler

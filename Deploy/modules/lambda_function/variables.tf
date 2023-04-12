@@ -1,16 +1,31 @@
-variable "function_name" {
+variable "source_path" {
   type        = string
-  description = "Name of the Lambda function."
+  description = "The path that includes the source file."
 }
 
-variable "rendered_source" {
+variable "source_file" {
   type        = string
-  description = "The contents of the rendered file."
+  description = "The source file for the lambda function."
+}
+
+variable "instance_id" {
+  type        = string
+  description = "Instance ID of the server instance."
+}
+
+variable "region" {
+  type        = string
+  description = "Region of the instance server."
 }
 
 variable "role_arn" {
   type        = string
   description = "The ARN of the role the lambda function will assume."
+}
+
+variable "api_execution_arn" {
+  type        = string
+  description = "Exectuion ARN of the API."
 }
 
 variable "kms_key_arn" {

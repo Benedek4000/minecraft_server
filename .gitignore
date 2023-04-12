@@ -1,5 +1,7 @@
 *.zip
 *.pub
+rcon_password.txt
+McRcon/*
 
 # Local .terraform directories
 **/.terraform/*

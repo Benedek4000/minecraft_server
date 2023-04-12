@@ -1,42 +1,17 @@
-data "template_file" "start_function" {
-  template = file("./lambda_functions/lambda_startServer.py")
-  vars = {
-    INSTANCE_ID = aws_instance.server.id
-    REGION_NAME = var.region
-  }
-}
-
-/* data "template_file" "stop_function" {
-  template = file("./lambda_functions/lambda_stopServer.py")
-  vars = {
-    INSTANCE_ID = aws_instance.server.id
-    REGION_NAME = var.region
-  }
-} */
-
-module "start_function" {
+module "lambda_functions" {
   source = "./modules/lambda_function"
 
-  function_name   = "start_function"
-  rendered_source = data.template_file.start_function.rendered
-  role_arn        = module.lambda-role.role_arn
-  kms_key_arn     = aws_kms_key.lambda-logs.arn
-  project         = var.project
+  for_each = toset(fileset("${path.root}/${var.lambda_file_source}", "**.*"))
+
+  source_path       = "${path.root}/${var.lambda_file_source}"
+  source_file       = each.value
+  instance_id       = aws_instance.server.id
+  region            = var.region
+  role_arn          = module.lambda-role.role_arn
+  kms_key_arn       = aws_kms_key.lambda-logs.arn
+  api_execution_arn = module.api_gateway.execution_arn
+  project           = var.project
 }
-
-output "start_url" {
-  value = module.start_function.invoke_arn
-}
-
-/* module "stop_function" {
-  source = "./modules/lambda_function"
-
-  function_name   = "stop_function"
-  rendered_source = data.template_file.stop_function.rendered
-  role_arn        = module.lambda-role.role_arn
-  kms_key_arn     = aws_kms_key.lambda-logs.arn
-  project         = var.project
-} */
 
 resource "aws_kms_key" "lambda-logs" {
   description             = "${var.project}-lambda-log-key"
