@@ -37,3 +37,8 @@ variable "project" {
   type        = string
   description = "The name of the project."
 }
+
+variable "stop_schedule_arn" {
+  type        = string
+  description = "ARN of the Cloudwatch Schedule to stop the server."
+}

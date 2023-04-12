@@ -5,12 +5,15 @@ module "lambda_functions" {
 
   source_path       = "${path.root}/${var.lambda_file_source}"
   source_file       = each.value
-  instance_id       = aws_instance.server.id
-  region            = var.region
   role_arn          = module.lambda-role.role_arn
   kms_key_arn       = aws_kms_key.lambda-logs.arn
   api_execution_arn = module.api_gateway.execution_arn
   project           = var.project
+
+  instance_id = aws_instance.server.id
+  region      = var.region
+
+  stop_schedule_arn = aws_cloudwatch_event_rule.trigger_lambda_stop.arn
 }
 
 resource "aws_kms_key" "lambda-logs" {

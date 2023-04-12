@@ -41,3 +41,12 @@ resource "aws_lambda_permission" "api_gateway_permission" {
 
   source_arn = "${var.api_execution_arn}/*"
 }
+
+resource "aws_lambda_permission" "cloudwatch_permission" {
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.function.function_name
+  principal     = "events.amazonaws.com"
+
+  source_arn = var.stop_schedule_arn
+}

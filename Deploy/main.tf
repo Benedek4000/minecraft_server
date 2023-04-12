@@ -16,6 +16,7 @@ variable "port_server_status" {}
 variable "lambda_role_predefined_policies" {}
 variable "ec2_role_predefined_policies" {}
 variable "instance_type" {}
+variable "stop_hour" {}
 
 locals {
   defaultTags = {

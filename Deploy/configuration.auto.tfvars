@@ -20,3 +20,4 @@ lambda_file_source = "lambda_functions"
 
 az            = "a"
 instance_type = "t4g.small"
+stop_hour     = 6
