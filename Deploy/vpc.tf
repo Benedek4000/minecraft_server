@@ -56,24 +56,10 @@ resource "aws_security_group" "server" {
     protocol    = "tcp"
     cidr_blocks = [var.cidr_anyone]
   }
-  egress {
-    description = "server out"
-    from_port   = var.port_server
-    to_port     = var.port_server
-    protocol    = "tcp"
-    cidr_blocks = [var.cidr_anyone]
-  }
   ingress {
-    description = "server status in"
-    from_port   = var.port_server_status
-    to_port     = var.port_server_status
-    protocol    = "tcp"
-    cidr_blocks = [var.cidr_anyone]
-  }
-  egress {
-    description = "server status out"
-    from_port   = var.port_server_status
-    to_port     = var.port_server_status
+    description = "RCON"
+    from_port   = var.port_rcon
+    to_port     = var.port_rcon
     protocol    = "tcp"
     cidr_blocks = [var.cidr_anyone]
   }

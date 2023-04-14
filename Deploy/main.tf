@@ -12,7 +12,7 @@ variable "port_ssh" {}
 variable "port_http" {}
 variable "port_https" {}
 variable "port_server" {}
-variable "port_server_status" {}
+variable "port_rcon" {}
 variable "lambda_role_predefined_policies" {}
 variable "ec2_role_predefined_policies" {}
 variable "instance_type" {}
