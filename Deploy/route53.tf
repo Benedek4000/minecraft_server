@@ -10,7 +10,7 @@ resource "aws_route53_record" "server" {
   records = [aws_eip.server.public_ip]
 }
 
-resource "aws_route53_record" "start-server" {
+resource "aws_route53_record" "control-server" {
   name    = "${var.api_domain_tag}${var.minecraft_domain_tag}${var.zone_name}"
   type    = "A"
   zone_id = data.aws_route53_zone.zone.zone_id

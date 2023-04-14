@@ -15,6 +15,9 @@ data "template_file" "start_minecraft_server" {
 data "template_file" "user_data" {
   template = file("./user_data.sh")
   vars = {
+    #STOP              = file("./server_files/stop.sh")
+    START             = file("./server_files/start.sh")
+    SERVER_COMMAND    = file("./server_files/server_command.sh")
     EULA              = file("./server_files/eula.txt")
     SERVER_PROPERTIES = data.template_file.server_properties.rendered
     MINECRAFT_SERVICE = file("./server_files/minecraft.service")
