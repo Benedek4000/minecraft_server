@@ -26,12 +26,16 @@ data "template_file" "user_data" {
   }
 }
 
+data "aws_ec2_instance_type" "server" {
+  instance_type = var.instance_type
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["amazon"]
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-${data.aws_ec2_instance_type.server.supported_architectures[0]}-server-*"]
   }
   filter {
     name   = "root-device-type"
@@ -43,7 +47,7 @@ data "aws_ami" "ubuntu" {
   }
   filter {
     name   = "architecture"
-    values = ["arm64"]
+    values = data.aws_ec2_instance_type.server.supported_architectures
   }
 }
 

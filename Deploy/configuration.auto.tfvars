@@ -19,5 +19,5 @@ ec2_role_predefined_policies    = ["AmazonSSMFullAccess"]
 lambda_file_source = "lambda_functions"
 
 az            = "a"
-instance_type = "t4g.small"
+instance_type = "c6g.medium"
 stop_hour     = 6
