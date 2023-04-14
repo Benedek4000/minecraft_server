@@ -3,15 +3,15 @@ resource "aws_api_gateway_rest_api" "api" {
   description                  = var.api_description
   disable_execute_api_endpoint = true
   endpoint_configuration {
-    types = ["REGIONAL"]
+    types = ["EDGE"]
   }
 }
 
 resource "aws_api_gateway_domain_name" "api" {
-  domain_name              = var.domain_name
-  regional_certificate_arn = var.certificate_arn
+  domain_name     = var.domain_name
+  certificate_arn = var.certificate_arn
   endpoint_configuration {
-    types = ["REGIONAL"]
+    types = ["EDGE"]
   }
 }
 
