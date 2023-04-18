@@ -16,7 +16,6 @@ variable "port_rcon" {}
 variable "lambda_role_predefined_policies" {}
 variable "ec2_role_predefined_policies" {}
 variable "instance_type" {}
-variable "stop_hour" {}
 
 locals {
   defaultTags = {
