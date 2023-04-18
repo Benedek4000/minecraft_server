@@ -72,10 +72,6 @@ resource "aws_instance" "server" {
   user_data                   = data.template_file.user_data.rendered
   iam_instance_profile        = aws_iam_instance_profile.server-profile.name
 
-  root_block_device {
-    volume_size = 4
-  }
-
   lifecycle {
     ignore_changes = [ami]
   }
