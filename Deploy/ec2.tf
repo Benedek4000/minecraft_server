@@ -76,6 +76,10 @@ resource "aws_instance" "server" {
     volume_size = 4
   }
 
+  lifecycle {
+    ignore_changes = [ami]
+  }
+
   tags = {
     Name = var.project
   }
