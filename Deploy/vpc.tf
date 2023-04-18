@@ -28,13 +28,13 @@ resource "aws_route_table_association" "public" {
 resource "aws_security_group" "server" {
   name   = "${var.project}-sg"
   vpc_id = aws_vpc.vpc.id
-  ingress {
+  /* ingress {
     description = "ssh access"
     from_port   = var.port_ssh
     to_port     = var.port_ssh
     protocol    = "tcp"
-    cidr_blocks = [var.cidr_anyone] # maybe fix this
-  }
+    cidr_blocks = [var.cidr_anyone]
+  } */
   egress {
     description = "http access"
     from_port   = var.port_http
