@@ -1,0 +1,50 @@
+body {
+	margin: 0;
+	background-color: black;
+}
+#div-toolbar {
+	background-color: black;
+	height: 10%;
+	padding-top: 25%;
+	text-align: center;
+	color: greenyellow;
+	margin: 0 auto;
+}
+.toolbar-button {
+	outline: none;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 80px;
+	padding-right: 80px;
+	border: none;
+	background: none;
+	text-transform: uppercase;
+	background-color: black;
+	font-family: "Raleway", Sans-serif;
+	height: 100%;
+	color: white;
+	font-size: 3em;
+	letter-spacing: 5px;
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+	-moz-transition: all 0.1s;
+	-o-transition: all 0.1s;
+}
+.toolbar-button:hover {
+	background-color: bisque;
+	color: blue;
+}
+.status-bar {
+	padding-top: 15%;
+	background-color: black;
+	margin: 0 auto;
+	text-align: center;
+	color: white;
+}
+.status {
+	background-color: black;
+	color: white;
+	font-family: "Raleway", Sans-serif;
+	height: 100%;
+	font-size: 3em;
+}

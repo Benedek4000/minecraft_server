@@ -2,6 +2,18 @@ data "aws_route53_zone" "zone" {
   name = var.zone_name
 }
 
+resource "aws_route53_record" "website" {
+  name    = module.website_acm_certificate.certificate_domain_name
+  type    = "A"
+  zone_id = data.aws_route53_zone.zone.zone_id
+  alias {
+    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
+
 resource "aws_route53_record" "server" {
   name    = "${var.minecraft_domain_tag}${var.zone_name}"
   type    = "A"
@@ -11,7 +23,7 @@ resource "aws_route53_record" "server" {
 }
 
 resource "aws_route53_record" "control-server" {
-  name    = "${var.api_domain_tag}${var.minecraft_domain_tag}${var.zone_name}"
+  name    = module.api_acm_certificate.certificate_domain_name
   type    = "A"
   zone_id = data.aws_route53_zone.zone.zone_id
   alias {

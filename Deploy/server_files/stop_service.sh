@@ -11,4 +11,6 @@ do
 done
 sudo bash /home/ubuntu/server_command.sh "stop"
 sudo sleep 15
+sudo aws s3 sync /home/ubuntu ${S3_TARGET} --exclude ".*"
+sudo sleep 10
 sudo shutdown -P now

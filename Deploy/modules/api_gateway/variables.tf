@@ -27,3 +27,8 @@ variable "stop_function" {
   type        = string
   description = "Invoke ARN of the stop function."
 }
+
+variable "status_function" {
+  type        = string
+  description = "Invoke ARN of the status function."
+}

@@ -1,11 +1,14 @@
 variable "project" {}
 variable "region" {}
 variable "az" {}
+variable "website_file_source" {}
 variable "server_file_source" {}
 variable "lambda_file_source" {}
+variable "control_website_domain_tag" {}
 variable "api_domain_tag" {}
 variable "minecraft_domain_tag" {}
 variable "zone_name" {}
+variable "enable_waf" {}
 variable "cidr_vpc" {}
 variable "cidr_anyone" {}
 variable "port_ssh" {}

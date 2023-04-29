@@ -12,17 +12,23 @@ data "template_file" "start_minecraft_server" {
   }
 }
 
+data "template_file" "stop_service" {
+  template = file("./server_files/stop_service.sh")
+  vars = {
+    S3_TARGET = "s3://${module.s3_backup.bucket_id}"
+  }
+}
+
 data "template_file" "user_data" {
   template = file("./user_data.sh")
   vars = {
-    #STOP              = file("./server_files/stop.sh")
     START             = file("./server_files/start.sh")
     SERVER_COMMAND    = file("./server_files/server_command.sh")
     EULA              = file("./server_files/eula.txt")
     SERVER_PROPERTIES = data.template_file.server_properties.rendered
     MINECRAFT_SERVICE = file("./server_files/minecraft.service")
     START_SERVICE     = data.template_file.start_minecraft_server.rendered
-    STOP_SERVICE      = file("./server_files/stop_service.sh")
+    STOP_SERVICE      = data.template_file.stop_service.rendered
   }
 }
 
@@ -36,6 +42,7 @@ data "aws_ami" "ubuntu" {
   filter {
     name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-${data.aws_ec2_instance_type.server.supported_architectures[0]}-server-*"]
+    #values = ["al2023-ami-*-kernel-6.1-${data.aws_ec2_instance_type.server.supported_architectures[0]}"]
   }
   filter {
     name   = "root-device-type"

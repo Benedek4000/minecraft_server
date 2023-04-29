@@ -14,5 +14,3 @@ def handler(event, context):
             'statusCode': 500,
             'body': json.dumps('FAILURE')
         }
-
-# add event scheduler

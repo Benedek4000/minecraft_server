@@ -7,6 +7,7 @@ module "api_gateway" {
   certificate_arn = module.api_acm_certificate.certificate_arn
   start_function  = module.lambda_functions["lambda_startServer.py"].invoke_arn
   stop_function   = module.lambda_functions["lambda_stopServer.py"].invoke_arn
+  status_function = module.lambda_functions["lambda_getStatus.py"].invoke_arn
 }
 
 resource "aws_api_gateway_stage" "api" {
