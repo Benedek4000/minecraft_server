@@ -6,26 +6,26 @@ var statusText = document.querySelector("#status");
 init();
 
 function init() {
-	refresh();
+	statusText.textContent = "Loading Status...";
+	getResponse("https://api.minecraft.benedekkovacs.com/status");
+
 	button_start.addEventListener("click", function () {
-		start();
+		statusText.textContent = "Starting server...";
+		getResponse("https://api.minecraft.benedekkovacs.com/start");
 	});
 	button_stop.addEventListener("click", function () {
-		stop();
+		statusText.textContent = "Stopping server...";
+		getResponse("https://api.minecraft.benedekkovacs.com/stop");
 	});
 	button_refresh.addEventListener("click", function () {
-		refresh();
+		statusText.textContent = "Loading Status...";
+		getResponse("https://api.minecraft.benedekkovacs.com/status");
 	});
 }
-//problem with incorrect headers
-function start() {
-	fetch("https://api.minecraft.benedekkovacs.com/start").then((response) => (statusText.textContent = response));
-}
 
-function stop() {
-	fetch("https://api.minecraft.benedekkovacs.com/stop").then((response) => (statusText.textContent = response));
-}
-
-function refresh() {
-	fetch("https://api.minecraft.benedekkovacs.com/status").then((response) => (statusText.textContent = response));
+async function getResponse(url) {
+	responseString = await fetch(url, { method: "GET" })
+		.then((response) => response.json())
+		.then((responseJson) => JSON.stringify(responseJson))
+		.then((responseString) => (statusText.textContent = responseString.split("\\")[1].substring(1)));
 }

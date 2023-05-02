@@ -11,6 +11,6 @@ def handler(event, context):
         }
     except:
         return {
-            'statusCode': 500,
+            'statusCode': 200,
             'body': json.dumps('FAILURE')
         }
