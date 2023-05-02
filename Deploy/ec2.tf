@@ -1,19 +1,19 @@
 data "template_file" "server_properties" {
-  template = file("./server_files/server.properties")
+  template = file("${var.server_file_source}/server.properties")
   vars = {
-    RCON_PASSWORD = file("./server_files/rcon_password.txt")
+    RCON_PASSWORD = file("${var.server_file_source}/rcon_password.txt")
   }
 }
 
 data "template_file" "start_minecraft_server" {
-  template = file("./server_files/start_minecraft_server.sh")
+  template = file("${var.server_file_source}/start_minecraft_server.sh")
   vars = {
-    RCON_PASSWORD = file("./server_files/rcon_password.txt")
+    RCON_PASSWORD = file("${var.server_file_source}/rcon_password.txt")
   }
 }
 
 data "template_file" "stop_service" {
-  template = file("./server_files/stop_service.sh")
+  template = file("${var.server_file_source}/stop_service.sh")
   vars = {
     S3_TARGET = "s3://${module.s3_backup.bucket_id}"
   }
@@ -22,11 +22,11 @@ data "template_file" "stop_service" {
 data "template_file" "user_data" {
   template = file("./user_data.sh")
   vars = {
-    START             = file("./server_files/start.sh")
-    SERVER_COMMAND    = file("./server_files/server_command.sh")
-    EULA              = file("./server_files/eula.txt")
+    START             = file("${var.server_file_source}/start.sh")
+    SERVER_COMMAND    = file("${var.server_file_source}/server_command.sh")
+    EULA              = file("${var.server_file_source}/eula.txt")
     SERVER_PROPERTIES = data.template_file.server_properties.rendered
-    MINECRAFT_SERVICE = file("./server_files/minecraft.service")
+    MINECRAFT_SERVICE = file("${var.server_file_source}/minecraft.service")
     START_SERVICE     = data.template_file.start_minecraft_server.rendered
     STOP_SERVICE      = data.template_file.stop_service.rendered
   }
