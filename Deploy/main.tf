@@ -9,20 +9,34 @@ variable "api_domain_tag" {}
 variable "minecraft_domain_tag" {}
 variable "zone_name" {}
 variable "enable_waf" {}
-variable "cidr_vpc" {}
-variable "cidr_anyone" {}
-variable "port_ssh" {}
-variable "port_http" {}
-variable "port_https" {}
-variable "port_server" {}
-variable "port_rcon" {}
 variable "lambda_role_predefined_policies" {}
 variable "ec2_role_predefined_policies" {}
 variable "instance_type" {}
+variable "sgData" {
+  type = object({
+    portSsh    = number
+    portHttp   = number
+    portHttps  = number
+    portServer = number
+    portRcon   = number
+    cidrVpc    = list(string)
+    cidrAnyone = list(string)
+  })
+}
+variable "securityGroups" {}
+
 
 locals {
   defaultTags = {
     project = var.project
+  }
+
+  portMapping = {
+    portSsh    = var.sgData.portSsh
+    portHttp   = var.sgData.portHttp
+    portHttps  = var.sgData.portHttps
+    portServer = var.sgData.portServer
+    portRcon   = var.sgData.portRcon
   }
 }
 

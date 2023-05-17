@@ -3,5 +3,5 @@ output "website_domain_name" {
 }
 
 output "server_domain_name" {
-  value = "${aws_route53_record.server.name}:${var.port_server}"
+  value = "${aws_route53_record.server.name}:${local.portMapping.portServer}"
 }

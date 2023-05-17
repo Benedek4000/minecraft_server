@@ -74,7 +74,7 @@ resource "aws_instance" "server" {
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public.id
   availability_zone           = "${var.region}${var.az}"
-  vpc_security_group_ids      = [aws_security_group.server.id]
+  vpc_security_group_ids      = [aws_security_group.sg["server"].id]
   user_data                   = data.template_file.user_data.rendered
   iam_instance_profile        = aws_iam_instance_profile.server-profile.name
 

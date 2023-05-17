@@ -10,4 +10,3 @@ todo:
 -   email alert whenever the server is started/stopped
 -   cloudwatch logs for apigateway, ec2
 -   perfect security group
--   add security group configuration

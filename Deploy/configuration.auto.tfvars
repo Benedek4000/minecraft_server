@@ -9,13 +9,15 @@ minecraft_domain_tag       = "minecraft."
 zone_name                  = "benedekkovacs.com"
 enable_waf                 = false
 
-cidr_vpc    = "10.0.0.0/16"
-cidr_anyone = "0.0.0.0/0"
-port_ssh    = 22
-port_http   = 80
-port_https  = 443
-port_server = 25565
-port_rcon   = 25575
+sgData = {
+  portSsh    = 22
+  portHttp   = 80
+  portHttps  = 443
+  portServer = 25565
+  portRcon   = 25575
+  cidrVpc    = ["10.0.0.0/16"]
+  cidrAnyone = ["0.0.0.0/0"]
+}
 
 lambda_role_predefined_policies = ["AmazonEC2FullAccess", "AmazonSSMFullAccess"]
 ec2_role_predefined_policies    = ["AmazonSSMFullAccess", "AmazonS3FullAccess"]
