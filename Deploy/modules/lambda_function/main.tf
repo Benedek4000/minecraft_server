@@ -27,6 +27,7 @@ resource "aws_lambda_function" "function" {
   function_name = split(".", var.source_file)[0]
   role          = var.role_arn
   handler       = "${split(".", var.source_file)[0]}.handler"
+  timeout       = 10
 
   source_code_hash = data.archive_file.lambda_archive.output_base64sha256
 
