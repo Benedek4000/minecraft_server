@@ -74,4 +74,19 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "bucket-encryption
   }
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "versioning-bucket-config" {
+  depends_on = [aws_s3_bucket_versioning.bucket_versioning]
 
+  bucket = aws_s3_bucket.bucket.id
+
+  rule {
+    id = "config"
+
+    noncurrent_version_expiration {
+      newer_noncurrent_versions = 7
+      noncurrent_days           = 7
+    }
+
+    status = "Enabled"
+  }
+}
