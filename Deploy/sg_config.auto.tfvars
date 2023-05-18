@@ -3,6 +3,14 @@ securityGroups = [
     name        = "server"
     description = "For the server."
     rules = [
+      /* {
+        type        = "ingress"
+        description = "inbound ssh"
+        fromPort    = "portSsh"
+        toPort      = "portSsh"
+        protocol    = "tcp"
+        target      = "cidrAnyone"
+      }, */
       {
         type        = "egress"
         description = "outbound http traffic"

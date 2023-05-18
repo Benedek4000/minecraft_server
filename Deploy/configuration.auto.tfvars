@@ -23,4 +23,4 @@ lambda_role_predefined_policies = ["AmazonEC2FullAccess", "AmazonSSMFullAccess"]
 ec2_role_predefined_policies    = ["AmazonSSMFullAccess", "AmazonS3FullAccess"]
 
 az            = "a"
-instance_type = "c7g.large"
+instance_type = "c7g.medium"
