@@ -7,7 +7,7 @@ def handler(event, context):
         responses = client.start_instances(InstanceIds=["${INSTANCE_ID}"])
         return {
             'statusCode': 200,
-            'body': json.dumps('Server started. It may take up to 5 minutes for the server to start up.')
+            'body': json.dumps('Server started. It may take up to 2 minutes for the server to start up.')
         }
     except:
         return {
