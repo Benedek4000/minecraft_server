@@ -5,7 +5,7 @@ module "lambda_functions" {
 
   source_path       = "${path.root}/${var.lambda_file_source}"
   source_file       = each.value
-  role_arn          = module.lambda-role.role_arn
+  role_arn          = module.lambda-role.roleArn
   kms_key_arn       = aws_kms_key.lambda-logs.arn
   api_execution_arn = aws_api_gateway_rest_api.api.execution_arn
   project           = var.project

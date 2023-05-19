@@ -1,17 +1,40 @@
+locals {
+  apigatewayRolePredefinedPolicies = [
+    "AmazonAPIGatewayPushToCloudWatchLogs",
+  ]
+  lambdaRolePredefinedPolicies = [
+    "AmazonEC2FullAccess",
+    "AmazonSSMFullAccess"
+  ]
+  ec2RolePredefinedPolicies = [
+    "AmazonSSMFullAccess",
+    "AmazonS3FullAccess"
+  ]
+}
+
+module "apigatewayRole" {
+  source = "./modules/role"
+
+  roleName             = "${var.project}-apigateway-role"
+  principalType        = "Service"
+  principalIdentifiers = ["apigateway.amazonaws.com"]
+  predefinedPolicies   = local.apigatewayRolePredefinedPolicies
+}
+
 module "lambda-role" {
   source = "./modules/role"
 
-  role_name             = "${var.project}-lambda-role"
-  principal_type        = "Service"
-  principal_identifiers = ["lambda.amazonaws.com"]
-  predefined_policies   = var.lambda_role_predefined_policies
+  roleName             = "${var.project}-lambda-role"
+  principalType        = "Service"
+  principalIdentifiers = ["lambda.amazonaws.com"]
+  predefinedPolicies   = local.lambdaRolePredefinedPolicies
 }
 
 module "ec2-role" {
   source = "./modules/role"
 
-  role_name             = "${var.project}-ec2-role"
-  principal_type        = "Service"
-  principal_identifiers = ["ec2.amazonaws.com"]
-  predefined_policies   = var.ec2_role_predefined_policies
+  roleName             = "${var.project}-ec2-role"
+  principalType        = "Service"
+  principalIdentifiers = ["ec2.amazonaws.com"]
+  predefinedPolicies   = local.ec2RolePredefinedPolicies
 }

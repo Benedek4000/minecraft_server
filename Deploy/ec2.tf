@@ -64,7 +64,7 @@ resource "aws_eip" "server" {
 
 resource "aws_iam_instance_profile" "server-profile" {
   name = "${var.project}-profile"
-  role = module.ec2-role.role_name
+  role = module.ec2-role.roleName
 }
 
 resource "aws_instance" "server" {

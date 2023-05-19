@@ -9,8 +9,8 @@ variable "api_domain_tag" {}
 variable "minecraft_domain_tag" {}
 variable "zone_name" {}
 variable "enable_waf" {}
-variable "lambda_role_predefined_policies" {}
-variable "ec2_role_predefined_policies" {}
+variable "apiFile" {}
+variable "logFormatFile" {}
 variable "instance_type" {}
 variable "sgData" {
   type = object({

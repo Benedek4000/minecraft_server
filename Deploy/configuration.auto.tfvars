@@ -8,6 +8,8 @@ api_domain_tag             = "api."
 minecraft_domain_tag       = "minecraft."
 zone_name                  = "benedekkovacs.com"
 enable_waf                 = false
+apiFile                    = "api.json"
+logFormatFile              = "log_format.json"
 
 sgData = {
   portSsh    = 22
@@ -18,9 +20,6 @@ sgData = {
   cidrVpc    = ["10.0.0.0/16"]
   cidrAnyone = ["0.0.0.0/0"]
 }
-
-lambda_role_predefined_policies = ["AmazonEC2FullAccess", "AmazonSSMFullAccess"]
-ec2_role_predefined_policies    = ["AmazonSSMFullAccess", "AmazonS3FullAccess"]
 
 az            = "a"
 instance_type = "c7g.medium"

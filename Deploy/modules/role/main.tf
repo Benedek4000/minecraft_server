@@ -13,19 +13,19 @@ data "aws_iam_policy_document" "AssumeRoleDetails" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
-      type        = var.principal_type
-      identifiers = var.principal_identifiers
+      type        = var.principalType
+      identifiers = var.principalIdentifiers
     }
   }
 }
 
 resource "aws_iam_role" "role" {
-  name               = var.role_name
+  name               = var.roleName
   assume_role_policy = data.aws_iam_policy_document.AssumeRoleDetails.json
 }
 
 data "aws_iam_policy" "predefinedPolicies" {
-  for_each = var.predefined_policies
+  for_each = var.predefinedPolicies
   name     = each.value
 }
 
