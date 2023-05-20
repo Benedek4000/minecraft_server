@@ -1,5 +1,5 @@
 locals {
-  stageName = "prod"
+  stageName = var.apiGatewayStageName
 }
 
 data "template_file" "api" {

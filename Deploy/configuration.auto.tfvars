@@ -10,6 +10,8 @@ zone_name                  = "benedekkovacs.com"
 enable_waf                 = false
 apiFile                    = "api.json"
 logFormatFile              = "log_format.json"
+server_file_path           = "https://piston-data.mojang.com/v1/objects/8f3112a1049751cc472ec13e397eade5336ca7ae/server.jar"
+apiGatewayStageName        = "prod"
 
 sgData = {
   portSsh    = 22

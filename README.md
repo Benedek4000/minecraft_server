@@ -6,5 +6,5 @@ control panel address: control.minecraft.benedekkovacs.com
 todo:
 
 -   email alert whenever the server is started/stopped
--   cloudwatch logs for ec2
 -   version update procedure
+-   cloudwatch logs for ec2

@@ -29,6 +29,7 @@ data "template_file" "user_data" {
     MINECRAFT_SERVICE = file("${var.server_file_source}/minecraft.service")
     START_SERVICE     = data.template_file.start_minecraft_server.rendered
     STOP_SERVICE      = data.template_file.stop_service.rendered
+    SERVER_FILE_PATH  = var.server_file_path
   }
 }
 

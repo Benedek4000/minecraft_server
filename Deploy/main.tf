@@ -11,6 +11,8 @@ variable "zone_name" {}
 variable "enable_waf" {}
 variable "apiFile" {}
 variable "logFormatFile" {}
+variable "server_file_path" {}
+variable "apiGatewayStageName" {}
 variable "instance_type" {}
 variable "sgData" {
   type = object({

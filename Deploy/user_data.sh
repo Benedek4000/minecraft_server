@@ -9,7 +9,7 @@ apt install unzip -y
 unzip awscliv2.zip
 ./aws/install
 
-wget https://piston-data.mojang.com/v1/objects/8f3112a1049751cc472ec13e397eade5336ca7ae/server.jar -P /home/ubuntu/
+wget '${SERVER_FILE_PATH}' -P /home/ubuntu/
 
 echo '${START}' > /home/ubuntu/start.sh && chmod +x /home/ubuntu/start.sh
 echo '${SERVER_COMMAND}' > /home/ubuntu/server_command.sh && chmod +x /home/ubuntu/server_command.sh
