@@ -9,7 +9,7 @@ terraform {
 
 data "archive_file" "website_files" {
   type        = "zip"
-  output_path = "_website_archive.zip"
+  output_path = "../Projects/website_archive.zip"
   source_dir  = var.file_source
 }
 

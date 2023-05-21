@@ -19,7 +19,7 @@ data "archive_file" "lambda_archive" {
   type                    = "zip"
   source_content_filename = var.source_file
   source_content          = data.template_file.data.rendered
-  output_path             = "_${var.source_file}.zip"
+  output_path             = "../Projects/${var.source_file}.zip"
 }
 
 resource "aws_lambda_function" "function" {
