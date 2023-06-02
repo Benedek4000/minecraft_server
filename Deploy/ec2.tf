@@ -60,7 +60,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_eip" "server" {
   instance = aws_instance.server.id
-  vpc      = true
+  domain   = "vpc"
 }
 
 resource "aws_iam_instance_profile" "server-profile" {
