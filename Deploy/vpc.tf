@@ -1,5 +1,8 @@
 resource "aws_vpc" "vpc" {
   cidr_block = var.sgData.cidrVpc[0]
+  tags = {
+    Name = var.project
+  }
 }
 
 resource "aws_internet_gateway" "ig" {
