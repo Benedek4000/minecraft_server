@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_event_rule" "trigger_lambda_stop" {
-  name                = "stop-server-trigger"
-  description         = "Stop the Minecraft Server every day at 6am UTC"
+  name                = "${var.project}-${var.server_name}-stop-server-trigger"
+  description         = "Stop the ${var.server_name} Minecraft Server every day at 6am UTC"
   schedule_expression = "cron(55 5,17 * * ? *)"
 }
 

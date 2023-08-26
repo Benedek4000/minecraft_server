@@ -19,12 +19,12 @@ data "archive_file" "lambda_archive" {
   type                    = "zip"
   source_content_filename = var.source_file
   source_content          = data.template_file.data.rendered
-  output_path             = "../Projects/${var.source_file}.zip"
+  output_path             = "${var.build_files}/${var.server_name}/${var.source_file}.zip"
 }
 
 resource "aws_lambda_function" "function" {
   filename      = data.archive_file.lambda_archive.output_path
-  function_name = split(".", var.source_file)[0]
+  function_name = "${split(".", var.source_file)[0]}-${var.server_name}"
   role          = var.role_arn
   handler       = "${split(".", var.source_file)[0]}.handler"
   timeout       = 10

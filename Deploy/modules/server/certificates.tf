@@ -5,7 +5,7 @@ module "website_acm_certificate" {
     aws = aws.northVirginia
   }
   zone_name  = var.zone_name
-  domain_tag = "${var.control_website_domain_tag}${var.minecraft_domain_tag}"
+  domain_tag = "${local.control_domain_tag}${local.minecraft_domain_tag}"
 }
 
 
@@ -17,5 +17,5 @@ module "api_acm_certificate" {
   }
 
   zone_name  = var.zone_name
-  domain_tag = "${var.api_domain_tag}${var.minecraft_domain_tag}"
+  domain_tag = "${local.api_domain_tag}${local.minecraft_domain_tag}"
 }

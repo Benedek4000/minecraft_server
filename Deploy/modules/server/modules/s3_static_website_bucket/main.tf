@@ -7,10 +7,46 @@ terraform {
   }
 }
 
+locals {
+  no_modification_files = toset(["favicon.ico", "index.html", "styles.css"])
+}
+
+data "local_file" "no_modification" {
+  for_each = local.no_modification_files
+
+  filename = "${var.file_source}/${each.value}"
+}
+
+resource "local_file" "no_modification" {
+  for_each = local.no_modification_files
+
+  filename = "${var.build_files}/${var.server_name}/${each.value}"
+  content  = data.local_file.no_modification[each.value].content
+}
+
+data "template_file" "source_js" {
+  template = file("${var.file_source}/source.js")
+  vars = {
+    SERVER_NAME    = var.server_name
+    API_DOMAIN_TAG = var.api_domain_tag
+    ZONE_NAME      = var.zone_name
+  }
+}
+
+resource "local_file" "source_js" {
+  filename = "${var.build_files}/${var.server_name}/source.js"
+  content  = data.template_file.source_js.rendered
+}
+
 data "archive_file" "website_files" {
   type        = "zip"
-  output_path = "../Projects/website_archive.zip"
-  source_dir  = var.file_source
+  output_path = "${var.build_files}/website_${var.server_name}.zip"
+  source_dir  = "${var.build_files}/${var.server_name}"
+
+  depends_on = [
+    local_file.no_modification,
+    local_file.source_js,
+  ]
 }
 
 data "aws_iam_policy_document" "s3-read-only" {
@@ -105,11 +141,11 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "bucket-encryption
 resource "null_resource" "website-upload" {
   provisioner "local-exec" {
     environment = {
-      S3_SOURCE = var.file_source
+      S3_SOURCE = "${var.build_files}/${var.server_name}"
       S3_TARGET = "s3://${aws_s3_bucket.bucket.id}"
     }
 
-    command = "bash ./modules/s3_static_website_bucket/upload_files.sh"
+    command = "bash ${var.misc_file_source}/upload_files.sh"
   }
 
   triggers = {

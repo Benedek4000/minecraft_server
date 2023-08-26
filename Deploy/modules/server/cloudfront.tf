@@ -1,5 +1,5 @@
 locals {
-  s3_origin_id = "${var.project}_origin_id"
+  s3_origin_id = "${var.project}_${var.server_name}_origin_id"
 }
 
 resource "aws_cloudfront_origin_access_identity" "oai" {
@@ -20,8 +20,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_root_object = "index.html"
 
   aliases = [module.website_acm_certificate.certificate_domain_name]
-
-  web_acl_id = var.enable_waf ? aws_wafv2_web_acl.webAcl[0].arn : null
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]

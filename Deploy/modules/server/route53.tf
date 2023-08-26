@@ -15,7 +15,7 @@ resource "aws_route53_record" "website" {
 
 
 resource "aws_route53_record" "server" {
-  name    = "${var.minecraft_domain_tag}${var.zone_name}"
+  name    = "${local.minecraft_domain_tag}${var.zone_name}"
   type    = "A"
   zone_id = data.aws_route53_zone.zone.zone_id
   ttl     = 300

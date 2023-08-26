@@ -1,31 +1,11 @@
 variable "project" {}
 variable "region" {}
-variable "az" {}
-variable "website_file_source" {}
-variable "server_file_source" {}
-variable "lambda_file_source" {}
-variable "control_website_domain_tag" {}
-variable "api_domain_tag" {}
-variable "minecraft_domain_tag" {}
+variable "default_az" {}
 variable "zone_name" {}
-variable "enable_waf" {}
-variable "apiFile" {}
-variable "logFormatFile" {}
-variable "server_file_path" {}
-variable "apiGatewayStageName" {}
-variable "instance_type" {}
-variable "sgData" {
-  type = object({
-    portSsh    = number
-    portHttp   = number
-    portHttps  = number
-    portServer = number
-    portRcon   = number
-    cidrVpc    = list(string)
-    cidrAnyone = list(string)
-  })
-}
-variable "securityGroups" {}
+variable "default_server_file_path" {}
+variable "default_instance_type" {}
+variable "servers" {}
+variable "versions" {}
 
 
 locals {
@@ -33,13 +13,11 @@ locals {
     project = var.project
   }
 
-  portMapping = {
-    portSsh    = var.sgData.portSsh
-    portHttp   = var.sgData.portHttp
-    portHttps  = var.sgData.portHttps
-    portServer = var.sgData.portServer
-    portRcon   = var.sgData.portRcon
-  }
+  website_file_source = "${path.root}/../Projects/website"
+  server_file_source  = "${path.root}/../Projects/server_files"
+  lambda_file_source  = "${path.root}/../Projects/lambda_functions"
+  misc_file_source    = "${path.root}/../Projects/misc_files"
+  build_file_source   = "${path.root}/../Projects/build_files"
 }
 
 provider "aws" {
@@ -66,4 +44,31 @@ data "local_sensitive_file" "public_key" {
 resource "aws_key_pair" "key_pair" {
   key_name   = var.project
   public_key = data.local_sensitive_file.public_key.content
+}
+
+module "minecraft-servers" {
+  providers = {
+    aws               = aws
+    aws.northVirginia = aws.northVirginia
+  }
+
+  source   = "./modules/server"
+  for_each = { for k, v in var.servers : k => v }
+
+  project             = var.project
+  region              = var.region
+  az                  = try(each.value.az, var.default_az)
+  website_file_source = local.website_file_source
+  server_file_source  = local.server_file_source
+  lambda_file_source  = local.lambda_file_source
+  misc_file_source    = local.misc_file_source
+  build_file_source   = local.build_file_source
+  mc_version          = try(each.value.version, "latest")
+  versions            = var.versions
+  key_name            = aws_key_pair.key_pair.key_name
+  server_name         = each.key
+  vpc_number          = each.value.vpc_number
+  zone_name           = var.zone_name
+  instance_type       = try(each.value.instance_type, var.default_instance_type)
+  server_properties   = each.value.server_properties
 }

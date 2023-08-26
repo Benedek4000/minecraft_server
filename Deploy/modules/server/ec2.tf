@@ -2,6 +2,13 @@ data "template_file" "server_properties" {
   template = file("${var.server_file_source}/server.properties")
   vars = {
     RCON_PASSWORD = file("${var.server_file_source}/rcon_password.txt")
+    SEED          = try(var.server_properties.seed, local.default_server_properties.seed)
+    GAMEMODE      = try(var.server_properties.gamemode, local.default_server_properties.gamemode)
+    MOTD          = try(var.server_properties.motd, local.default_server_properties.motd)
+    DIFFICULTY    = try(var.server_properties.difficulty, local.default_server_properties.difficulty)
+    ONLINE_MODE   = try(var.server_properties.online_mode, local.default_server_properties.online_mode)
+    HARDCORE      = try(var.server_properties.hardcore, local.default_server_properties.hardcore)
+    LEVEL_TYPE    = try(var.server_properties.level_type, local.default_server_properties.level_type)
   }
 }
 
@@ -20,7 +27,7 @@ data "template_file" "stop_service" {
 }
 
 data "template_file" "user_data" {
-  template = file("./user_data.sh")
+  template = file("${var.misc_file_source}/user_data.sh")
   vars = {
     START             = file("${var.server_file_source}/start.sh")
     SERVER_COMMAND    = file("${var.server_file_source}/server_command.sh")
@@ -29,7 +36,7 @@ data "template_file" "user_data" {
     MINECRAFT_SERVICE = file("${var.server_file_source}/minecraft.service")
     START_SERVICE     = data.template_file.start_minecraft_server.rendered
     STOP_SERVICE      = data.template_file.stop_service.rendered
-    SERVER_FILE_PATH  = var.server_file_path
+    SERVER_FILE_PATH  = local.versions[var.mc_version]
   }
 }
 
@@ -64,12 +71,12 @@ resource "aws_eip" "server" {
 }
 
 resource "aws_iam_instance_profile" "server-profile" {
-  name = "${var.project}-profile"
+  name = "${var.project}-${var.server_name}-profile"
   role = module.ec2-role.roleName
 }
 
 resource "aws_instance" "server" {
-  key_name                    = aws_key_pair.key_pair.key_name
+  key_name                    = var.key_name
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   associate_public_ip_address = true
@@ -84,6 +91,6 @@ resource "aws_instance" "server" {
   }
 
   tags = {
-    Name = var.project
+    Name = "${var.project}-${var.server_name}"
   }
 }

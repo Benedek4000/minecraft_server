@@ -15,7 +15,7 @@ locals {
 module "apigatewayRole" {
   source = "./modules/role"
 
-  roleName             = "${var.project}-apigateway-role"
+  roleName             = "${var.project}-${var.server_name}-apigateway-role"
   principalType        = "Service"
   principalIdentifiers = ["apigateway.amazonaws.com"]
   predefinedPolicies   = local.apigatewayRolePredefinedPolicies
@@ -24,7 +24,7 @@ module "apigatewayRole" {
 module "lambda-role" {
   source = "./modules/role"
 
-  roleName             = "${var.project}-lambda-role"
+  roleName             = "${var.project}-${var.server_name}-lambda-role"
   principalType        = "Service"
   principalIdentifiers = ["lambda.amazonaws.com"]
   predefinedPolicies   = local.lambdaRolePredefinedPolicies
@@ -33,7 +33,7 @@ module "lambda-role" {
 module "ec2-role" {
   source = "./modules/role"
 
-  roleName             = "${var.project}-ec2-role"
+  roleName             = "${var.project}-${var.server_name}-ec2-role"
   principalType        = "Service"
   principalIdentifiers = ["ec2.amazonaws.com"]
   predefinedPolicies   = local.ec2RolePredefinedPolicies

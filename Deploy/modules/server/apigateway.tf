@@ -1,9 +1,9 @@
 locals {
-  stageName = var.apiGatewayStageName
+  stageName = "prod"
 }
 
 data "template_file" "api" {
-  template = file(var.apiFile)
+  template = file("${var.misc_file_source}/api.json")
   vars = {
     START_SERVER_LAMBDA = module.lambda_functions["lambda_startServer.py"].invoke_arn
     STOP_SERVER_LAMBDA  = module.lambda_functions["lambda_stopServer.py"].invoke_arn
@@ -13,11 +13,11 @@ data "template_file" "api" {
 }
 
 data "template_file" "log_format" {
-  template = file(var.logFormatFile)
+  template = file("${var.misc_file_source}/log_format.json")
 }
 
 resource "aws_api_gateway_rest_api" "api" {
-  name = "${var.project}-control"
+  name = "${var.project}-${var.server_name}-control"
   body = data.template_file.api.rendered
   endpoint_configuration {
     types = ["EDGE"]

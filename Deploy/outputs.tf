@@ -1,7 +1,5 @@
-output "website_domain_name" {
-  value = module.website_acm_certificate.certificate_domain_name
-}
-
-output "server_domain_name" {
-  value = "${aws_route53_record.server.name}:${local.portMapping.portServer}"
+output "server_info" {
+  value = {
+    for k, v in module.minecraft-servers : k => v.server_info
+  }
 }

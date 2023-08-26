@@ -8,6 +8,15 @@ variable "source_file" {
   description = "The source file for the lambda function."
 }
 
+variable "build_files" {
+  type        = string
+  description = "The build file source."
+}
+
+variable "server_name" {
+  type = string
+}
+
 variable "instance_id" {
   type        = string
   description = "Instance ID of the server instance."
