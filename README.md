@@ -1,10 +1,11 @@
 # Minecraft Server - minecraft.benedekkovacs.com
 
-server address: minecraft.benedekkovacs.com:25565  
-control panel address: control.minecraft.benedekkovacs.com
+server address: `server name`.benedekkovacs.co.uk:25565  
+control panel address: control.`server_name`.benedekkovacs.co.uk
 
 todo:
 
+-   automate vpc ip
 -   standarise variable names
 -   email alert whenever the server is started/stopped
 -   version update procedure
