@@ -43,4 +43,6 @@ locals {
   }
 
   versions = merge(var.versions, { "latest" = var.versions[element(sort(keys(var.versions)), length(keys(var.versions)) - 1)] })
+
+  modded = try(var.server_properties.modding, null) != null ? true : false
 }

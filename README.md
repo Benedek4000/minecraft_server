@@ -5,6 +5,8 @@ control panel address: control.`server_name`.benedekkovacs.co.uk
 
 todo:
 
+    add modding
+
 -   automate vpc ip
 -   standarise variable names
 -   email alert whenever the server is started/stopped
