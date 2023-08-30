@@ -37,11 +37,6 @@ variable "api_execution_arn" {
   description = "Exectuion ARN of the API."
 }
 
-variable "kms_key_arn" {
-  type        = string
-  description = "ARN of the KMS key for the CloudWatch logs."
-}
-
 variable "project" {
   type        = string
   description = "The name of the project."
