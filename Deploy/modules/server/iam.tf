@@ -1,7 +1,4 @@
 locals {
-  apigatewayRolePredefinedPolicies = [
-    "AmazonAPIGatewayPushToCloudWatchLogs",
-  ]
   lambdaRolePredefinedPolicies = [
     "AmazonEC2FullAccess",
     "AmazonSSMFullAccess"
@@ -10,15 +7,6 @@ locals {
     "AmazonSSMFullAccess",
     "AmazonS3FullAccess"
   ]
-}
-
-module "apigatewayRole" {
-  source = "./modules/role"
-
-  roleName             = "${var.project}-${var.server_name}-apigateway-role"
-  principalType        = "Service"
-  principalIdentifiers = ["apigateway.amazonaws.com"]
-  predefinedPolicies   = local.apigatewayRolePredefinedPolicies
 }
 
 module "lambda-role" {

@@ -40,7 +40,7 @@ resource "local_file" "source_js" {
 
 data "archive_file" "website_files" {
   type        = "zip"
-  output_path = "${var.build_files}/website_${var.server_name}.zip"
+  output_path = "${var.build_files}/${var.server_name}_website.zip"
   source_dir  = "${var.build_files}/${var.server_name}"
 
   depends_on = [
