@@ -6,6 +6,7 @@ McRcon/*
 # Local .terraform directories
 **/.terraform/*
 backend.tf
+**/build_files/*
 
 # .tfstate files
 *.tfstate

@@ -5,10 +5,13 @@ control panel address: control.`server_name`.benedekkovacs.co.uk
 
 todo:
 
-    add modding
-
+-   add modding
 -   automate vpc ip
 -   standarise variable names
 -   email alert whenever the server is started/stopped
 -   version update procedure
 -   cloudwatch logs for ec2
+
+links for future works:
+
+-   https://minecraft.fandom.com/wiki/Tutorials/Setting_up_a_Minecraft_Forge_server#Text_version
