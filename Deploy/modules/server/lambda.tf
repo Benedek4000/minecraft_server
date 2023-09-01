@@ -1,5 +1,5 @@
 module "lambda_functions" {
-  source = "./modules/lambda_function"
+  source = "../lambda_function"
 
   for_each = toset(fileset("${var.lambda_file_source}", "**.*"))
 

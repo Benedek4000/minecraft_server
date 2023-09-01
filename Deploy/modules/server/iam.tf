@@ -10,7 +10,7 @@ locals {
 }
 
 module "lambda-role" {
-  source = "./modules/role"
+  source = "../role"
 
   roleName             = "${var.project}-${var.server_name}-lambda-role"
   principalType        = "Service"
@@ -19,7 +19,7 @@ module "lambda-role" {
 }
 
 module "ec2-role" {
-  source = "./modules/role"
+  source = "../role"
 
   roleName             = "${var.project}-${var.server_name}-ec2-role"
   principalType        = "Service"

@@ -1,5 +1,5 @@
 module "s3_website" {
-  source = "./modules/s3_static_website_bucket"
+  source = "../s3_static_website_bucket"
 
   bucket_name                           = "${var.project}-${var.server_name}-control"
   cloudfront_origin_access_identity_arn = aws_cloudfront_origin_access_identity.oai.iam_arn
@@ -12,7 +12,7 @@ module "s3_website" {
 }
 
 module "s3_backup" {
-  source = "./modules/s3_bucket"
+  source = "../s3_bucket"
 
   bucket_name           = "${var.project}-${var.server_name}-backup"
   principal_type        = "Service"

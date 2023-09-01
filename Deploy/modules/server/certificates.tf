@@ -1,5 +1,5 @@
 module "website_acm_certificate" {
-  source = "./modules/acm_certificate"
+  source = "../acm_certificate"
 
   providers = {
     aws = aws.northVirginia
@@ -10,7 +10,7 @@ module "website_acm_certificate" {
 
 
 module "api_acm_certificate" {
-  source = "./modules/acm_certificate"
+  source = "../acm_certificate"
 
   providers = {
     aws = aws.northVirginia
