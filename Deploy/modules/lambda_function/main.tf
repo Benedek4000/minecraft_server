@@ -12,6 +12,8 @@ data "template_file" "data" {
   vars = {
     INSTANCE_ID = var.instance_id
     REGION_NAME = var.region
+    ZONE_ID     = var.zone_id
+    NAME_TAG    = var.name_tag
   }
 }
 

@@ -27,6 +27,16 @@ variable "region" {
   description = "Region of the instance server."
 }
 
+variable "zone_id" {
+  type        = string
+  description = "Hosted zone ID."
+}
+
+variable "name_tag" {
+  type        = string
+  description = "Name tag of server."
+}
+
 variable "role_arn" {
   type        = string
   description = "The ARN of the role the lambda function will assume."

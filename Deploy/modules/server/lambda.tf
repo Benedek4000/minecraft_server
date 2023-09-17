@@ -13,6 +13,8 @@ module "lambda_functions" {
 
   instance_id = aws_instance.server.id
   region      = var.region
+  zone_id     = data.aws_route53_zone.zone.zone_id
+  name_tag    = aws_route53_record.server.name
 
   stop_schedule_arn = aws_cloudwatch_event_rule.trigger_lambda_stop.arn
 }

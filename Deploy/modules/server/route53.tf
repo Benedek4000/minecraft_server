@@ -19,7 +19,7 @@ resource "aws_route53_record" "server" {
   type    = "A"
   zone_id = data.aws_route53_zone.zone.zone_id
   ttl     = 300
-  records = [aws_eip.server.public_ip]
+  records = ["0.0.0.0"]
 }
 
 resource "aws_route53_record" "control-server" {

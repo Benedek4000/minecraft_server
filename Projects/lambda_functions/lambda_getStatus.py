@@ -3,7 +3,7 @@ import json
 
 def handler(event, context):
     try:
-        client = boto3.client('ec2', region_name="${REGION_NAME}")
+        ec2 = boto3.client('ec2', region_name="${REGION_NAME}")
         instance_status = client.describe_instance_status(InstanceIds=["${INSTANCE_ID}"], IncludeAllInstances=True)['InstanceStatuses'][0]['InstanceState']['Name']
         return {
             'statusCode': 200,

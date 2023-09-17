@@ -65,11 +65,6 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-resource "aws_eip" "server" {
-  instance = aws_instance.server.id
-  domain   = "vpc"
-}
-
 resource "aws_iam_instance_profile" "server-profile" {
   name = "${var.project}-${var.server_name}-profile"
   role = module.ec2-role.roleName

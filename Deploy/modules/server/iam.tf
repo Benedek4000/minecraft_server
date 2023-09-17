@@ -1,11 +1,12 @@
 locals {
   lambdaRolePredefinedPolicies = [
     "AmazonEC2FullAccess",
-    "AmazonSSMFullAccess"
+    "AmazonSSMFullAccess",
+    "AmazonRoute53FullAccess",
   ]
   ec2RolePredefinedPolicies = [
     "AmazonSSMFullAccess",
-    "AmazonS3FullAccess"
+    "AmazonS3FullAccess",
   ]
 }
 
