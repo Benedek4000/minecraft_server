@@ -67,7 +67,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_iam_instance_profile" "server-profile" {
   name = "${var.project}-${var.server_name}-profile"
-  role = module.ec2-role.roleName
+  role = module.ec2-role.role.name
 }
 
 resource "aws_instance" "server" {
@@ -82,7 +82,7 @@ resource "aws_instance" "server" {
   iam_instance_profile        = aws_iam_instance_profile.server-profile.name
 
   lifecycle {
-    ignore_changes = [ami]
+    ignore_changes = all
   }
 
   tags = {

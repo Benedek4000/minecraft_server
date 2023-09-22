@@ -10,7 +10,9 @@ variable "versions" {}
 variable "key_name" {}
 variable "zone_name" {}
 variable "mc_version" {}
-variable "vpc_number" {}
+variable "subnet_number" {}
+variable "vpc" {}
+variable "ig" {}
 variable "server_name" {}
 variable "instance_type" {}
 variable "server_properties" {}

@@ -3,7 +3,7 @@ data "aws_route53_zone" "zone" {
 }
 
 resource "aws_route53_record" "website" {
-  name    = module.website_acm_certificate.certificate_domain_name
+  name    = module.website_acm_certificate.certificate.domain_name
   type    = "A"
   zone_id = data.aws_route53_zone.zone.zone_id
   alias {
@@ -23,7 +23,7 @@ resource "aws_route53_record" "server" {
 }
 
 resource "aws_route53_record" "control-server" {
-  name    = module.api_acm_certificate.certificate_domain_name
+  name    = module.api_acm_certificate.certificate.domain_name
   type    = "A"
   zone_id = data.aws_route53_zone.zone.zone_id
   alias {

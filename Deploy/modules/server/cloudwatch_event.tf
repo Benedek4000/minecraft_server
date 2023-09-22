@@ -6,6 +6,6 @@ resource "aws_cloudwatch_event_rule" "trigger_lambda_stop" {
 
 resource "aws_cloudwatch_event_target" "invoke_lambda" {
   rule  = aws_cloudwatch_event_rule.trigger_lambda_stop.name
-  arn   = module.lambda_functions["lambda_stopServer.py"].arn
+  arn   = module.lambdaFunctions["stopServer"].function.arn
   input = jsonencode({ "message" : "Triggered by CloudWatch Event Rule" })
 }

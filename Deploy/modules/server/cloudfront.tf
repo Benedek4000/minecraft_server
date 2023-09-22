@@ -19,7 +19,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = false
   default_root_object = "index.html"
 
-  aliases = [module.website_acm_certificate.certificate_domain_name]
+  aliases = [module.website_acm_certificate.certificate.domain_name]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
@@ -50,7 +50,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = module.website_acm_certificate.certificate_arn
+    acm_certificate_arn      = module.website_acm_certificate.certificateValidation.certificate_arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }

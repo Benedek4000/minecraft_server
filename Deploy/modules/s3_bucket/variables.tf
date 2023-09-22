@@ -12,3 +12,8 @@ variable "principal_identifiers" {
   type        = list(string)
   description = "Bucket policy principal identifiers."
 }
+
+variable "force_destroy" {
+  type    = bool
+  default = false
+}

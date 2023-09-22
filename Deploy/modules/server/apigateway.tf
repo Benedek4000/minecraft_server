@@ -5,10 +5,10 @@ locals {
 data "template_file" "api" {
   template = file("${var.misc_file_source}/api.json")
   vars = {
-    START_SERVER_LAMBDA = module.lambda_functions["lambda_startServer.py"].invoke_arn
-    STOP_SERVER_LAMBDA  = module.lambda_functions["lambda_stopServer.py"].invoke_arn
-    GET_STATUS_LAMBDA   = module.lambda_functions["lambda_getStatus.py"].invoke_arn
-    WEBSITE_DOMAIN      = "https://${module.website_acm_certificate.certificate_domain_name}"
+    START_SERVER_LAMBDA = module.lambdaFunctions["startServer"].function.invoke_arn
+    STOP_SERVER_LAMBDA  = module.lambdaFunctions["stopServer"].function.invoke_arn
+    GET_STATUS_LAMBDA   = module.lambdaFunctions["getStatus"].function.invoke_arn
+    WEBSITE_DOMAIN      = "https://${module.website_acm_certificate.certificate.domain_name}"
   }
 }
 
@@ -25,8 +25,8 @@ resource "aws_api_gateway_rest_api" "api" {
 }
 
 resource "aws_api_gateway_domain_name" "api" {
-  domain_name     = module.api_acm_certificate.certificate_domain_name
-  certificate_arn = module.api_acm_certificate.certificate_arn
+  domain_name     = module.api_acm_certificate.certificate.domain_name
+  certificate_arn = module.api_acm_certificate.certificateValidation.certificate_arn
   security_policy = "TLS_1_2"
   endpoint_configuration {
     types = ["EDGE"]

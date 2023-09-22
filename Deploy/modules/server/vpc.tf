@@ -1,25 +1,17 @@
-resource "aws_vpc" "vpc" {
-  cidr_block = "10.${var.vpc_number}.0.0/16"
+resource "aws_subnet" "public" {
+  vpc_id            = var.vpc.id
+  availability_zone = "${var.region}${var.az}"
+  cidr_block        = cidrsubnet(var.vpc.cidr_block, 8, var.subnet_number)
   tags = {
     Name = "${var.project}-${var.server_name}"
   }
 }
 
-resource "aws_internet_gateway" "ig" {
-  vpc_id = aws_vpc.vpc.id
-}
-
-resource "aws_subnet" "public" {
-  vpc_id            = aws_vpc.vpc.id
-  availability_zone = "${var.region}${var.az}"
-  cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 1)
-}
-
 resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = var.vpc.id
   route {
     cidr_block = local.cidrBlocks.cidrAnyone[0]
-    gateway_id = aws_internet_gateway.ig.id
+    gateway_id = var.ig.id
   }
 }
 

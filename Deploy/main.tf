@@ -46,6 +46,17 @@ resource "aws_key_pair" "key_pair" {
   public_key = data.local_sensitive_file.public_key.content
 }
 
+resource "aws_vpc" "vpc" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "${var.project}"
+  }
+}
+
+resource "aws_internet_gateway" "ig" {
+  vpc_id = aws_vpc.vpc.id
+}
+
 module "minecraft-servers" {
   providers = {
     aws               = aws
@@ -67,8 +78,10 @@ module "minecraft-servers" {
   versions            = var.versions
   key_name            = aws_key_pair.key_pair.key_name
   server_name         = each.key
-  vpc_number          = each.value.vpc_number
+  vpc                 = aws_vpc.vpc
+  ig                  = aws_internet_gateway.ig
+  subnet_number       = each.value.subnet_number
   zone_name           = var.zone_name
   instance_type       = try(each.value.instance_type, var.default_instance_type)
-  server_properties   = each.value.server_properties
+  server_properties   = try(each.value.server_properties, null)
 }

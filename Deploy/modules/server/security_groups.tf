@@ -9,12 +9,12 @@ locals {
 
 resource "aws_security_group" "sg" {
   for_each    = local.sg
-  name        = "${var.project}-${each.value.name}"
+  name        = "${var.project}-${var.server_name}-${each.value.name}"
   description = each.value.description
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = var.vpc.id
 
   tags = {
-    Name = "${var.project}-${each.value.name}"
+    Name = "${var.project}-${var.server_name}-${each.value.name}"
   }
 }
 

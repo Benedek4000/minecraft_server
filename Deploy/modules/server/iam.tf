@@ -1,29 +1,29 @@
 locals {
-  lambdaRolePredefinedPolicies = [
+  lambdaRolePolicies = [
     "AmazonEC2FullAccess",
     "AmazonSSMFullAccess",
     "AmazonRoute53FullAccess",
   ]
-  ec2RolePredefinedPolicies = [
+  ec2RolePolicies = [
     "AmazonSSMFullAccess",
     "AmazonS3FullAccess",
   ]
 }
 
 module "lambda-role" {
-  source = "../role"
+  source = "git::https://github.com/Benedek4000/terraform-aws-role.git?ref=1.0.0"
 
   roleName             = "${var.project}-${var.server_name}-lambda-role"
   principalType        = "Service"
   principalIdentifiers = ["lambda.amazonaws.com"]
-  predefinedPolicies   = local.lambdaRolePredefinedPolicies
+  policies             = local.lambdaRolePolicies
 }
 
 module "ec2-role" {
-  source = "../role"
+  source = "git::https://github.com/Benedek4000/terraform-aws-role.git?ref=1.0.0"
 
   roleName             = "${var.project}-${var.server_name}-ec2-role"
   principalType        = "Service"
   principalIdentifiers = ["ec2.amazonaws.com"]
-  predefinedPolicies   = local.ec2RolePredefinedPolicies
+  policies             = local.ec2RolePolicies
 }
