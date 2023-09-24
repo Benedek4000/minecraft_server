@@ -8,7 +8,7 @@ resource "aws_cloudfront_origin_access_identity" "oai" {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = module.s3_website.bucket_domain_name
+    domain_name = module.s3_website.bucket.bucket_domain_name
     origin_id   = local.s3_origin_id
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path

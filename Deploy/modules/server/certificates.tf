@@ -1,5 +1,5 @@
 module "website_acm_certificate" {
-  source = "git::https://github.com/Benedek4000/terraform-aws-certificate.git?ref=1.0.1"
+  source = "git::https://github.com/Benedek4000/terraform-aws-certificate.git//module?ref=1.0.2"
 
   providers = {
     aws = aws.northVirginia
@@ -10,7 +10,7 @@ module "website_acm_certificate" {
 
 
 module "api_acm_certificate" {
-  source = "git::https://github.com/Benedek4000/terraform-aws-certificate.git?ref=1.0.1"
+  source = "git::https://github.com/Benedek4000/terraform-aws-certificate.git//module?ref=1.0.2"
 
   providers = {
     aws = aws.northVirginia

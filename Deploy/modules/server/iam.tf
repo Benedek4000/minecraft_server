@@ -11,7 +11,7 @@ locals {
 }
 
 module "lambda-role" {
-  source = "git::https://github.com/Benedek4000/terraform-aws-role.git?ref=1.0.0"
+  source = "git::https://github.com/Benedek4000/terraform-aws-role.git//module?ref=1.0.1"
 
   roleName             = "${var.project}-${var.server_name}-lambda-role"
   principalType        = "Service"
@@ -20,7 +20,7 @@ module "lambda-role" {
 }
 
 module "ec2-role" {
-  source = "git::https://github.com/Benedek4000/terraform-aws-role.git?ref=1.0.0"
+  source = "git::https://github.com/Benedek4000/terraform-aws-role.git//module?ref=1.0.1"
 
   roleName             = "${var.project}-${var.server_name}-ec2-role"
   principalType        = "Service"

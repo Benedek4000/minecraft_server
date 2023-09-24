@@ -41,7 +41,7 @@ data "archive_file" "website_files" {
 }
 
 resource "aws_s3_bucket_website_configuration" "web-conf" {
-  bucket = module.s3_website.bucket_id
+  bucket = module.s3_website.bucket.id
   index_document {
     suffix = "index.html"
   }
@@ -51,7 +51,7 @@ resource "null_resource" "website-upload" {
   provisioner "local-exec" {
     environment = {
       S3_SOURCE = "${var.build_file_source}/${var.server_name}"
-      S3_TARGET = "s3://${module.s3_website.bucket_id}"
+      S3_TARGET = "s3://${module.s3_website.bucket.id}"
     }
 
     command = "bash ${var.misc_file_source}/upload_files.sh"
@@ -63,18 +63,18 @@ resource "null_resource" "website-upload" {
 }
 
 module "s3_website" {
-  source = "../s3_bucket"
+  source = "git::https://github.com/Benedek4000/terraform-aws-bucket.git//module?ref=1.0.0"
 
-  bucket_name           = "${var.project}-${var.server_name}-control"
-  principal_type        = "AWS"
-  principal_identifiers = [aws_cloudfront_origin_access_identity.oai.iam_arn]
-  force_destroy         = true
+  bucketName           = "${var.project}-${var.server_name}-control"
+  principalType        = "AWS"
+  principalIdentifiers = [aws_cloudfront_origin_access_identity.oai.iam_arn]
+  forceDestroy         = true
 }
 
 module "s3_backup" {
-  source = "../s3_bucket"
+  source = "git::https://github.com/Benedek4000/terraform-aws-bucket.git//module?ref=1.0.0"
 
-  bucket_name           = "${var.project}-${var.server_name}-backup"
-  principal_type        = "Service"
-  principal_identifiers = ["ec2.amazonaws.com"]
+  bucketName           = "${var.project}-${var.server_name}-backup"
+  principalType        = "Service"
+  principalIdentifiers = ["ec2.amazonaws.com"]
 }

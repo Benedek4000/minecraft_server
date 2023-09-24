@@ -22,7 +22,7 @@ data "template_file" "start_minecraft_server" {
 data "template_file" "stop_service" {
   template = file("${var.server_file_source}/stop_service.sh")
   vars = {
-    S3_TARGET = "s3://${module.s3_backup.bucket_id}"
+    S3_TARGET = "s3://${module.s3_backup.bucket.id}"
   }
 }
 
