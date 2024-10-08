@@ -2,12 +2,18 @@
 
 apt update
 apt install software-properties-common -y
-apt install openjdk-17-jdk-headless -y
+apt install openjdk-21-jdk-headless -y
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
 apt install unzip -y
 unzip awscliv2.zip
 ./aws/install
+
+ufw disable
+ufw allow 22
+ufw allow 25565
+ufw allow 25575
+ufw enable
 
 wget '${SERVER_FILE_PATH}' -P /home/ubuntu/
 

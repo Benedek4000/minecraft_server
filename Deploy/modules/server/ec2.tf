@@ -49,7 +49,7 @@ data "aws_ami" "ubuntu" {
   owners      = ["amazon"]
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-${data.aws_ec2_instance_type.server.supported_architectures[0]}-server-*"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-${data.aws_ec2_instance_type.server.supported_architectures[0]}-server-*"]
   }
   filter {
     name   = "root-device-type"
