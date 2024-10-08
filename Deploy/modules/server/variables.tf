@@ -31,7 +31,8 @@ locals {
   }
 
   cidrBlocks = {
-    cidrAnyone = ["0.0.0.0/0"]
+    cidrAnyone = ["0.0.0.0/0"],
+    sshIps     = [for k, v in data.aws_ec2_managed_prefix_list.sshIps.entries : v.cidr]
   }
 
   default_server_properties = {
@@ -47,4 +48,8 @@ locals {
   versions = merge(var.versions, { "latest" = var.versions[element(sort(keys(var.versions)), length(keys(var.versions)) - 1)] })
 
   modded = try(var.server_properties.modding, null) != null ? true : false
+}
+
+data "aws_ec2_managed_prefix_list" "sshIps" {
+  name = "com.amazonaws.${var.region}.ec2-instance-connect"
 }

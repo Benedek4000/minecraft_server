@@ -10,7 +10,7 @@ locals {
           fromPort    = "portSsh"
           toPort      = "portSsh"
           protocol    = "tcp"
-          target      = "cidrAnyone"
+          target      = "sshIps"
         },
         {
           type        = "egress"

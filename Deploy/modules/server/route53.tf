@@ -20,6 +20,12 @@ resource "aws_route53_record" "server" {
   zone_id = data.aws_route53_zone.zone.zone_id
   ttl     = 300
   records = ["0.0.0.0"]
+
+  lifecycle {
+    ignore_changes = [
+      records
+    ]
+  }
 }
 
 resource "aws_route53_record" "control-server" {
@@ -30,11 +36,5 @@ resource "aws_route53_record" "control-server" {
     zone_id                = aws_api_gateway_domain_name.api.cloudfront_zone_id
     name                   = aws_api_gateway_domain_name.api.cloudfront_domain_name
     evaluate_target_health = false
-  }
-
-  lifecycle {
-    ignore_changes = [
-      records
-    ]
   }
 }
