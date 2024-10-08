@@ -31,4 +31,10 @@ resource "aws_route53_record" "control-server" {
     name                   = aws_api_gateway_domain_name.api.cloudfront_domain_name
     evaluate_target_health = false
   }
+
+  lifecycle {
+    ignore_changes = [
+      records
+    ]
+  }
 }
