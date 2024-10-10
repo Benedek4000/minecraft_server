@@ -1,7 +1,7 @@
 # Minecraft Server - minecraft.benedekkovacs.co.uk
 
-server address: `server name`.benedekkovacs.co.uk:25565  
-control panel address: control.`server_name`.benedekkovacs.co.uk
+server address: `server name`.minecraft.benedekkovacs.co.uk:25565  
+control panel address: control.`server_name`.minecraft.benedekkovacs.co.uk
 
 todo:
 

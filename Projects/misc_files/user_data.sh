@@ -12,7 +12,6 @@ unzip awscliv2.zip
 ufw disable
 ufw allow 22
 ufw allow 25565
-ufw allow 25575
 ufw enable
 
 wget '${SERVER_FILE_PATH}' -P /home/ubuntu/

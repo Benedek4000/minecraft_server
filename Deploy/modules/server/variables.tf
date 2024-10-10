@@ -7,7 +7,6 @@ variable "lambda_file_source" {}
 variable "misc_file_source" {}
 variable "build_file_source" {}
 variable "versions" {}
-variable "key_name" {}
 variable "zone_name" {}
 variable "mc_version" {}
 variable "subnet_number" {}
@@ -20,7 +19,7 @@ variable "server_properties" {}
 locals {
   control_domain_tag   = "control."
   api_domain_tag       = "api."
-  minecraft_domain_tag = "${var.server_name}."
+  minecraft_domain_tag = "${var.server_name}.minecraft."
 
   portMapping = {
     portSsh    = 22

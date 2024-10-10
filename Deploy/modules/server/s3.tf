@@ -18,7 +18,7 @@ resource "local_file" "no_modification" {
 data "template_file" "source_js" {
   template = file("${var.website_file_source}/source.js")
   vars = {
-    SERVER_NAME    = var.server_name
+    SERVER_DOMAIN  = local.minecraft_domain_tag
     API_DOMAIN_TAG = local.api_domain_tag
     ZONE_NAME      = var.zone_name
   }

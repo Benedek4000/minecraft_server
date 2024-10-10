@@ -1,26 +1,12 @@
 locals {
   lambdaConfig = {
-    startServer = {
-      cloudwatchInvokeArns = [],
+    minecraftServerControl = {
+      cloudwatchInvokeArns = [aws_cloudwatch_event_rule.trigger_lambda_stop.arn],
       environmentVariables = {
         INSTANCE_ID = aws_instance.server.id,
         REGION      = var.region,
         ZONE_ID     = data.aws_route53_zone.zone.zone_id,
         NAME_TAG    = aws_route53_record.server.name,
-      }
-    }
-    stopServer = {
-      cloudwatchInvokeArns = [aws_cloudwatch_event_rule.trigger_lambda_stop.arn],
-      environmentVariables = {
-        INSTANCE_ID = aws_instance.server.id,
-        REGION      = var.region,
-      }
-    }
-    getStatus = {
-      cloudwatchInvokeArns = [],
-      environmentVariables = {
-        INSTANCE_ID = aws_instance.server.id,
-        REGION      = var.region,
       }
     }
   }

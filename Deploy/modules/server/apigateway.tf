@@ -5,10 +5,8 @@ locals {
 data "template_file" "api" {
   template = file("${var.misc_file_source}/api.json")
   vars = {
-    START_SERVER_LAMBDA = module.lambdaFunctions["startServer"].function.invoke_arn
-    STOP_SERVER_LAMBDA  = module.lambdaFunctions["stopServer"].function.invoke_arn
-    GET_STATUS_LAMBDA   = module.lambdaFunctions["getStatus"].function.invoke_arn
-    WEBSITE_DOMAIN      = "https://${module.website_acm_certificate.certificate.domain_name}"
+    SERVER_CONTROL_LAMBDA = module.lambdaFunctions["minecraftServerControl"].function.invoke_arn
+    WEBSITE_DOMAIN        = "https://${module.website_acm_certificate.certificate.domain_name}"
   }
 }
 

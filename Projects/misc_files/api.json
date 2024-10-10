@@ -1,7 +1,7 @@
 {
 	"openapi": "3.0.1",
 	"info": {
-		"title": "minecraft-server-control",
+		"title": "minecraft-servers-test-control",
 		"description": "Minecraft Server Control API",
 		"version": "2023-04-29T21:55:02Z"
 	},
@@ -22,19 +22,20 @@
 					}
 				},
 				"x-amazon-apigateway-integration": {
-					"type": "aws",
 					"httpMethod": "POST",
-					"uri": "${GET_STATUS_LAMBDA}",
+					"uri": "${SERVER_CONTROL_LAMBDA}",
 					"responses": {
 						"default": {
 							"statusCode": "200",
 							"responseParameters": {
-								"method.response.header.Access-Control-Allow-Origin": "'${WEBSITE_DOMAIN}'"
+								"method.response.header.Access-Control-Allow-Origin": "'*'"
 							}
 						}
 					},
 					"passthroughBehavior": "when_no_match",
-					"timeoutInMillis": 29000
+					"timeoutInMillis": 29000,
+					"contentHandling": "CONVERT_TO_TEXT",
+					"type": "aws_proxy"
 				}
 			},
 			"options": {
@@ -62,21 +63,21 @@
 					}
 				},
 				"x-amazon-apigateway-integration": {
-					"type": "mock",
 					"responses": {
 						"default": {
 							"statusCode": "200",
 							"responseParameters": {
 								"method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
 								"method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-								"method.response.header.Access-Control-Allow-Origin": "'${WEBSITE_DOMAIN}'"
+								"method.response.header.Access-Control-Allow-Origin": "'*'"
 							}
 						}
 					},
 					"requestTemplates": {
 						"application/json": "{\"statusCode\": 200}"
 					},
-					"passthroughBehavior": "when_no_match"
+					"passthroughBehavior": "when_no_match",
+					"type": "mock"
 				}
 			}
 		},
@@ -96,19 +97,20 @@
 					}
 				},
 				"x-amazon-apigateway-integration": {
-					"type": "aws",
 					"httpMethod": "POST",
-					"uri": "${STOP_SERVER_LAMBDA}",
+					"uri": "${SERVER_CONTROL_LAMBDA}",
 					"responses": {
 						"default": {
 							"statusCode": "200",
 							"responseParameters": {
-								"method.response.header.Access-Control-Allow-Origin": "'${WEBSITE_DOMAIN}'"
+								"method.response.header.Access-Control-Allow-Origin": "'*'"
 							}
 						}
 					},
 					"passthroughBehavior": "when_no_match",
-					"timeoutInMillis": 29000
+					"timeoutInMillis": 29000,
+					"contentHandling": "CONVERT_TO_TEXT",
+					"type": "aws_proxy"
 				}
 			},
 			"options": {
@@ -136,21 +138,21 @@
 					}
 				},
 				"x-amazon-apigateway-integration": {
-					"type": "mock",
 					"responses": {
 						"default": {
 							"statusCode": "200",
 							"responseParameters": {
 								"method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
 								"method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-								"method.response.header.Access-Control-Allow-Origin": "'${WEBSITE_DOMAIN}'"
+								"method.response.header.Access-Control-Allow-Origin": "'*'"
 							}
 						}
 					},
 					"requestTemplates": {
 						"application/json": "{\"statusCode\": 200}"
 					},
-					"passthroughBehavior": "when_no_match"
+					"passthroughBehavior": "when_no_match",
+					"type": "mock"
 				}
 			}
 		},
@@ -170,19 +172,20 @@
 					}
 				},
 				"x-amazon-apigateway-integration": {
-					"type": "aws",
 					"httpMethod": "POST",
-					"uri": "${START_SERVER_LAMBDA}",
+					"uri": "${SERVER_CONTROL_LAMBDA}",
 					"responses": {
 						"default": {
 							"statusCode": "200",
 							"responseParameters": {
-								"method.response.header.Access-Control-Allow-Origin": "'${WEBSITE_DOMAIN}'"
+								"method.response.header.Access-Control-Allow-Origin": "'*'"
 							}
 						}
 					},
 					"passthroughBehavior": "when_no_match",
-					"timeoutInMillis": 29000
+					"timeoutInMillis": 29000,
+					"contentHandling": "CONVERT_TO_TEXT",
+					"type": "aws_proxy"
 				}
 			},
 			"options": {
@@ -210,38 +213,38 @@
 					}
 				},
 				"x-amazon-apigateway-integration": {
-					"type": "mock",
 					"responses": {
 						"default": {
 							"statusCode": "200",
 							"responseParameters": {
 								"method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
 								"method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-								"method.response.header.Access-Control-Allow-Origin": "'${WEBSITE_DOMAIN}'"
+								"method.response.header.Access-Control-Allow-Origin": "'*'"
 							}
 						}
 					},
 					"requestTemplates": {
 						"application/json": "{\"statusCode\": 200}"
 					},
-					"passthroughBehavior": "when_no_match"
+					"passthroughBehavior": "when_no_match",
+					"type": "mock"
 				}
 			}
 		}
 	},
 	"components": {},
 	"x-amazon-apigateway-gateway-responses": {
-		"DEFAULT_5XX": {
-			"responseParameters": {
-				"gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
-				"gatewayresponse.header.Access-Control-Allow-Origin": "'https://control.minecraft.benedekkovacs.com'",
-				"gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-			}
-		},
 		"DEFAULT_4XX": {
 			"responseParameters": {
 				"gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
-				"gatewayresponse.header.Access-Control-Allow-Origin": "'https://control.minecraft.benedekkovacs.com'",
+				"gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+				"gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+			}
+		},
+		"DEFAULT_5XX": {
+			"responseParameters": {
+				"gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
+				"gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
 				"gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
 			}
 		}

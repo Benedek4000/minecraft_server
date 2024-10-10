@@ -37,15 +37,6 @@ provider "aws" {
   }
 }
 
-data "local_sensitive_file" "public_key" {
-  filename = "${path.cwd}/../minecraft_server.pub"
-}
-
-resource "aws_key_pair" "key_pair" {
-  key_name   = var.project
-  public_key = data.local_sensitive_file.public_key.content
-}
-
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
   tags = {
@@ -76,7 +67,6 @@ module "minecraft-servers" {
   build_file_source   = local.build_file_source
   mc_version          = try(each.value.version, "latest")
   versions            = var.versions
-  key_name            = aws_key_pair.key_pair.key_name
   server_name         = each.key
   vpc                 = aws_vpc.vpc
   ig                  = aws_internet_gateway.ig

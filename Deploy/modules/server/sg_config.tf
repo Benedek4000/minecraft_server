@@ -36,14 +36,6 @@ locals {
           protocol    = "tcp"
           target      = "cidrAnyone"
         },
-        {
-          type        = "ingress"
-          description = "inbound rcon"
-          fromPort    = "portRcon"
-          toPort      = "portRcon"
-          protocol    = "tcp"
-          target      = "cidrAnyone"
-        },
       ]
     }
   ]
