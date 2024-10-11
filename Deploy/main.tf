@@ -74,4 +74,7 @@ module "minecraft-servers" {
   zone_name           = var.zone_name
   instance_type       = try(each.value.instance_type, var.default_instance_type)
   server_properties   = try(each.value.server_properties, null)
+  files_bucket_id     = module.s3_server_files.bucket.id
+
+  #depends_on = [null_resource.server-files-upload] #race condition that should never be relevant
 }

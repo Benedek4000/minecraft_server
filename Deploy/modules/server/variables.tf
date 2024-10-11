@@ -15,6 +15,7 @@ variable "ig" {}
 variable "server_name" {}
 variable "instance_type" {}
 variable "server_properties" {}
+variable "files_bucket_id" {}
 
 locals {
   control_domain_tag   = "control."

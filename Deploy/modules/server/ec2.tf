@@ -1,26 +1,21 @@
-data "template_file" "server_properties" {
-  template = file("${var.server_file_source}/server.properties")
-  vars = {
-    SEED        = try(var.server_properties.seed, local.default_server_properties.seed)
-    GAMEMODE    = try(var.server_properties.gamemode, local.default_server_properties.gamemode)
-    MOTD        = try(var.server_properties.motd, local.default_server_properties.motd)
-    DIFFICULTY  = try(var.server_properties.difficulty, local.default_server_properties.difficulty)
-    ONLINE_MODE = try(var.server_properties.online_mode, local.default_server_properties.online_mode)
-    HARDCORE    = try(var.server_properties.hardcore, local.default_server_properties.hardcore)
-    LEVEL_TYPE  = try(var.server_properties.level_type, local.default_server_properties.level_type)
-  }
-}
-
-data "template_file" "stop_service" {
-  template = file("${var.server_file_source}/stop_service.sh")
-  vars = {
-    S3_TARGET = "s3://${module.s3_backup.bucket.id}"
+locals {
+  envVars = {
+    SEED                   = try(var.server_properties.seed, local.default_server_properties.seed)
+    GAMEMODE               = try(var.server_properties.gamemode, local.default_server_properties.gamemode)
+    MOTD                   = try(var.server_properties.motd, local.default_server_properties.motd)
+    DIFFICULTY             = try(var.server_properties.difficulty, local.default_server_properties.difficulty)
+    ONLINE_MODE            = try(var.server_properties.online_mode, local.default_server_properties.online_mode)
+    HARDCORE               = try(var.server_properties.hardcore, local.default_server_properties.hardcore)
+    LEVEL_TYPE             = try(var.server_properties.level_type, local.default_server_properties.level_type)
+    SERVER_FILE_PATH       = local.versions[var.mc_version]
+    S3_SERVER_FILES_TARGET = "s3://${var.files_bucket_id}"
+    S3_BACKUP_TARGET       = "s3://${module.s3_backup.bucket.id}"
   }
 }
 
 data "template_file" "user_data" {
   template = file("${var.misc_file_source}/user_data.sh")
-  vars = {
+  /* vars = {
     START             = file("${var.server_file_source}/start.sh")
     SERVER_COMMAND    = file("${var.server_file_source}/server_command.sh")
     EULA              = file("${var.server_file_source}/eula.txt")
@@ -29,7 +24,8 @@ data "template_file" "user_data" {
     START_SERVICE     = file("${var.server_file_source}/start_minecraft_server.sh")
     STOP_SERVICE      = data.template_file.stop_service.rendered
     SERVER_FILE_PATH  = local.versions[var.mc_version]
-  }
+  } */
+  vars = local.envVars
 }
 
 data "aws_ec2_instance_type" "server" {
