@@ -5,12 +5,9 @@ control panel address: control.`server_name`.minecraft.benedekkovacs.co.uk
 
 todo:
 
--   add modding
--   automate vpc ip
+-   add neoforge modding client
 -   standarise variable names
 -   email alert whenever the server is started/stopped
--   version update procedure
--   cloudwatch logs for ec2
 
 links for future works:
 
