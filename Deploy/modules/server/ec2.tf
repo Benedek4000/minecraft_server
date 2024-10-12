@@ -7,25 +7,16 @@ locals {
     ONLINE_MODE            = try(var.server_properties.online_mode, local.default_server_properties.online_mode)
     HARDCORE               = try(var.server_properties.hardcore, local.default_server_properties.hardcore)
     LEVEL_TYPE             = try(var.server_properties.level_type, local.default_server_properties.level_type)
-    SERVER_FILE_PATH       = local.versions[var.mc_version]
+    VERSION                = var.mc_version
+    SERVER_FILE_PATH       = var.versions[var.modding.client][var.mc_version]
     S3_SERVER_FILES_TARGET = "s3://${var.files_bucket_id}"
-    S3_BACKUP_TARGET       = "s3://${module.s3_backup.bucket.id}"
+    FORGE_MODS             = "${join(" ", var.modding.mods)}"
   }
 }
 
 data "template_file" "user_data" {
-  template = file("${var.misc_file_source}/user_data.sh")
-  /* vars = {
-    START             = file("${var.server_file_source}/start.sh")
-    SERVER_COMMAND    = file("${var.server_file_source}/server_command.sh")
-    EULA              = file("${var.server_file_source}/eula.txt")
-    SERVER_PROPERTIES = data.template_file.server_properties.rendered
-    MINECRAFT_SERVICE = file("${var.server_file_source}/minecraft.service")
-    START_SERVICE     = file("${var.server_file_source}/start_minecraft_server.sh")
-    STOP_SERVICE      = data.template_file.stop_service.rendered
-    SERVER_FILE_PATH  = local.versions[var.mc_version]
-  } */
-  vars = local.envVars
+  template = file("${var.misc_file_source}/user_data_${var.modding.client}.sh")
+  vars     = local.envVars
 }
 
 data "aws_ec2_instance_type" "server" {

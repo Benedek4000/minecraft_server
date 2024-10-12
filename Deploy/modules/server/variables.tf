@@ -16,6 +16,7 @@ variable "server_name" {}
 variable "instance_type" {}
 variable "server_properties" {}
 variable "files_bucket_id" {}
+variable "modding" {}
 
 locals {
   control_domain_tag   = "control."
@@ -38,14 +39,12 @@ locals {
   default_server_properties = {
     seed        = ""
     gamemode    = "survival"
-    motd        = "A Minecraft Server"
+    motd        = "'A Minecraft Server'"
     difficulty  = "normal"
     online_mode = "true"
     hardcore    = "false"
     level_type  = "minecraft\\:normal"
   }
-
-  versions = merge(var.versions, { "latest" = var.versions[element(sort(keys(var.versions)), length(keys(var.versions)) - 1)] })
 }
 
 data "aws_ec2_managed_prefix_list" "sshIps" {

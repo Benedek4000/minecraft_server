@@ -3,10 +3,11 @@ locals {
     minecraftServerControl = {
       cloudwatchInvokeArns = [aws_cloudwatch_event_rule.trigger_lambda_stop.arn],
       environmentVariables = {
-        INSTANCE_ID = aws_instance.server.id,
-        REGION      = var.region,
-        ZONE_ID     = data.aws_route53_zone.zone.zone_id,
-        NAME_TAG    = aws_route53_record.server.name,
+        INSTANCE_ID      = aws_instance.server.id,
+        REGION           = var.region,
+        ZONE_ID          = data.aws_route53_zone.zone.zone_id,
+        NAME_TAG         = aws_route53_record.server.name,
+        S3_BACKUP_TARGET = "s3://${module.s3_backup.bucket.id}",
       }
     }
   }

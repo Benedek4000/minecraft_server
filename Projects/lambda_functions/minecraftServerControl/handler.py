@@ -4,22 +4,23 @@ import boto3
 import time
 
 def handler(event, context):
-	try:
-		instance_id = os.environ['INSTANCE_ID']
-		region = os.environ['REGION']
-		zone_id = os.environ['ZONE_ID']
-		name_tag = os.environ['NAME_TAG']
-		message = ''
-		match event['path'][1:]:
-			case 'start':
-				message = start_server(instance_id, region, zone_id, name_tag)
-			case 'stop':
-				message = stop_server(instance_id, region)
-			case 'status':
-				message = get_status(instance_id, region)
-			case _:
-				message = 'Unknown command'
-		return {
+     try:
+        instance_id = os.environ['INSTANCE_ID']
+        region = os.environ['REGION']
+        zone_id = os.environ['ZONE_ID']
+        name_tag = os.environ['NAME_TAG']
+        s3_backup_target = os.environ['S3_BACKUP_TARGET']
+        message = ''
+        match event['path'][1:]:
+            case 'start':
+                message = start_server(instance_id, region, zone_id, name_tag)
+            case 'stop':
+                message = stop_server(instance_id, region, s3_backup_target)
+            case 'status':
+                message = get_status(instance_id, region)
+            case _:
+                message = 'Unknown command'
+        return {
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Headers': 'Content-Type',
@@ -28,8 +29,8 @@ def handler(event, context):
             },
             'body': json.dumps(message)
         }
-	except Exception as e:
-		return {
+     except Exception as e:
+        return {
             'statusCode': 200,
             'body': json.dumps(str(e))
         }
@@ -59,14 +60,14 @@ def start_server(instance_id, region, zone_id, name_tag):
     except Exception as e:
         return str(e)
 	
-def stop_server(instance_id, region):
+def stop_server(instance_id, region, s3_backup_target):
     try:
         if get_status(instance_id, region) == "stopped":
             return 'Server is currently stopped.'
         else:
             ssm = boto3.client('ssm', region_name=region)
             ssm.send_command(DocumentName="AWS-RunShellScript", Parameters={
-                                         'commands': ['sudo bash /home/ubuntu/stop_service.sh']}, InstanceIds=[instance_id])
+                                         'commands': [f'sudo bash /home/ubuntu/stop_service.sh {s3_backup_target}']}, InstanceIds=[instance_id])
             return 'Server stops in 5 minutes. It may take up to 2 further minutes for the server to shut down.'
     except Exception as e:
         return str(e)

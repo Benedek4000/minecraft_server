@@ -7,5 +7,6 @@ output "server_info" {
     hardcore            = try(var.server_properties.hardcore, local.default_server_properties.hardcore)
     online_mode         = try(var.server_properties.online_mode, local.default_server_properties.online_mode)
     version             = var.mc_version
+    modding             = var.modding.mods
   }
 }

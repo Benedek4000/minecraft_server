@@ -1,5 +1,6 @@
 *.zip
 *.pub
+Projects/server_files/mods/*
 
 # Local .terraform directories
 **/.terraform/*
