@@ -14,7 +14,7 @@ ufw allow 22
 ufw allow 25565
 ufw enable
 
-wget '${SERVER_FILE_PATH}' -O /home/ubuntu/forge.jar
+wget '${SERVER_FILE_PATH}' -O /home/ubuntu/neoforge.jar
 
 export SEED=${SEED}
 export GAMEMODE=${GAMEMODE}
@@ -40,8 +40,8 @@ for mod in ${MODS}; do
         aws s3 cp $S3_SERVER_FILES_TARGET/mods/$mod-${VERSION}.jar /home/ubuntu/mods
 done
 
-java -jar /home/ubuntu/forge.jar --installServer /home/ubuntu
-cp /home/ubuntu/forge-*.jar /home/ubuntu/server.jar
+java -jar /home/ubuntu/neoforge.jar --installServer /home/ubuntu
+cp /home/ubuntu/neoforge-*.jar /home/ubuntu/server.jar
 
 systemctl daemon-reload
 systemctl enable minecraft.service
