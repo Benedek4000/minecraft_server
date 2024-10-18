@@ -10,7 +10,7 @@ locals {
     VERSION                = var.mc_version
     SERVER_FILE_PATH       = var.versions[var.modding.client][var.mc_version]
     S3_SERVER_FILES_TARGET = "s3://${var.files_bucket_id}"
-    FORGE_MODS             = "${join(" ", var.modding.mods)}"
+    MODS                   = "${join(" ", [for mod in var.modding.mods : "${var.modding.client}-${mod}"])}"
   }
 }
 

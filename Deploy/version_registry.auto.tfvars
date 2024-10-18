@@ -10,7 +10,14 @@ versions = {
     "1.19.4" = "https://piston-data.mojang.com/v1/objects/8f3112a1049751cc472ec13e397eade5336ca7ae/server.jar"
   }
   forge = {
-    "1.20.4" = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.4-49.1.0/forge-1.20.4-49.1.0-installer.jar"
+    "1.21.1" = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.21.1-52.0.21/forge-1.21.1-52.0.21-installer.jar"
     "1.20.6" = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.6-50.1.0/forge-1.20.6-50.1.0-installer.jar"
+    "1.20.4" = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.4-49.1.0/forge-1.20.4-49.1.0-installer.jar"
+    "1.19.4" = "https://maven.minecraftforge.net/net/minecraftforge/forge/1.19.4-45.3.0/forge-1.19.4-45.3.0-installer.jar"
+
+  }
+  neoforge = {
+    "1.21.1" = "https://maven.neoforged.net/releases/net/neoforged/neoforge/21.1.71/neoforge-21.1.71-installer.jar"
+    "1.20.4" = "https://maven.neoforged.net/releases/net/neoforged/neoforge/20.4.237/neoforge-20.4.237-installer.jar"
   }
 }

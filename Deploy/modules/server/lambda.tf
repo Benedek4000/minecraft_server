@@ -14,7 +14,7 @@ locals {
 }
 
 module "lambdaFunctions" {
-  source = "git::https://github.com/Benedek4000/terraform-aws-lambda.git//module?ref=1.0.1"
+  source = "git::https://github.com/Benedek4000/terraform-aws-lambda.git//module?ref=1.0.2"
 
   for_each               = { for k, v in local.lambdaConfig : k => v }
   functionName           = "${each.key}-${var.server_name}"
