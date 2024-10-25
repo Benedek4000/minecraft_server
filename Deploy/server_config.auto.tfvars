@@ -18,4 +18,17 @@ servers = {
       mods   = ["jei", "bridges"]
     }
   } */
+  test = {
+    subnet_number = 0
+    version       = "1.20.4"
+    server_properties = {
+      motd        = "Test-Server"
+      online_mode = false
+      gamemode    = "creative"
+    }
+    /* modding = {
+      client = "neoforge"
+      mods   = ["jei", "bridges", "ie", "solar", "edivadlib"]
+    } */
+  }
 }

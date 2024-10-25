@@ -5,7 +5,7 @@ control panel address: control.`server_name`.minecraft.benedekkovacs.co.uk
 
 todo:
 
--   add neoforge modding client
+-   tighten permissions
 -   standarise variable names
 -   email alert whenever the server is started/stopped
 

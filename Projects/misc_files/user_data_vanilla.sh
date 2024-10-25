@@ -1,5 +1,14 @@
 #!/bin/bash
 
+export SEED=${SEED}
+export GAMEMODE=${GAMEMODE}
+export MOTD=${MOTD}
+export DIFFICULTY=${DIFFICULTY}
+export ONLINE_MODE=${ONLINE_MODE}
+export HARDCORE=${HARDCORE}
+export LEVEL_TYPE=${LEVEL_TYPE}
+export S3_SERVER_FILES_TARGET=${S3_SERVER_FILES_TARGET}
+
 apt update
 apt install software-properties-common -y
 apt install openjdk-21-jdk-headless -y
@@ -9,21 +18,17 @@ apt install unzip -y
 unzip awscliv2.zip
 ./aws/install
 
+wget https://amazoncloudwatch-agent.s3.amazonaws.com/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb
+dpkg -i -E ./amazon-cloudwatch-agent.deb
+aws s3 cp $S3_SERVER_FILES_TARGET/cloudwatch-agent-config.json /opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-agent-config.json
+/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-agent-config.json
+
 ufw disable
 ufw allow 22
 ufw allow 25565
 ufw enable
 
 wget '${SERVER_FILE_PATH}' -P /home/ubuntu/
-
-export SEED=${SEED}
-export GAMEMODE=${GAMEMODE}
-export MOTD=${MOTD}
-export DIFFICULTY=${DIFFICULTY}
-export ONLINE_MODE=${ONLINE_MODE}
-export HARDCORE=${HARDCORE}
-export LEVEL_TYPE=${LEVEL_TYPE}
-export S3_SERVER_FILES_TARGET=${S3_SERVER_FILES_TARGET}
 
 aws s3 cp $S3_SERVER_FILES_TARGET/config /home/ubuntu --recursive
 

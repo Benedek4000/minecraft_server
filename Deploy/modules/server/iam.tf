@@ -7,6 +7,7 @@ locals {
   ec2RolePolicies = [
     "AmazonSSMFullAccess",
     "AmazonS3FullAccess",
+    "CloudWatchAgentServerPolicy",
   ]
 }
 
